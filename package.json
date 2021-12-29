@@ -1,6 +1,7 @@
 {
   "name": "recipe-app",
   "version": "0.1.0",
+  "homepage": "http://rebecca-xm.github.io/recipe-app/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
@@ -9,6 +10,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "sass": "^1.45.1",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
