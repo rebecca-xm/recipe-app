@@ -1,8 +1,10 @@
+import styles from './Recipe.module.scss';
+
 //* prendo le props da app.js
 
 const Recipe = ({ title, calories, image, ingredients }) => {
     return (
-        <div>
+        <div className={styles.recipe}>
             <h1>{title}</h1>
             <ol>
                 {ingredients && ingredients.map(ingredient =>
@@ -11,8 +13,8 @@ const Recipe = ({ title, calories, image, ingredients }) => {
                     </ul>
                 )}
             </ol>
-            <p>{calories}</p>
-            <img src={image} alt="" />
+            <p>Calories: {Math.round(calories)}</p>
+            <img className={styles.image} src={image} alt="" />
         </div>
     );
 };
