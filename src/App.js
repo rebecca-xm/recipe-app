@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Recipe from './components/Recipe';
-import './App.css';
+import './App.scss';
 
 const App = () => {
   const APP_ID = 'e70c3cd6';
@@ -11,15 +11,22 @@ const App = () => {
   const [query, setQuery] = useState('banana');     // <= per evitare il limite di fetch ogni volta che scrivo nella search bar
 
   useEffect(() => {
+    const getRecipes = async () => {
+      const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+      const data = await response.json();
+      // console.log(data.hits);   //  => hits, recipe, label, calories, image
+      setRecipes(data.hits);
+    };
+
     getRecipes();
   }, [query]);      // <= in questo modo l'useEffect viene eseguito solo quando invio la richiesta di ricerca della ricetta
 
-  const getRecipes = async () => {
-    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-    const data = await response.json();
-    // console.log(data.hits);   //  => hits, recipe, label, calories, image
-    setRecipes(data.hits);
-  };
+  // const getRecipes = async () => {
+  //   const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+  //   const data = await response.json();
+  //   // console.log(data.hits);   //  => hits, recipe, label, calories, image
+  //   setRecipes(data.hits);
+  // };
 
   const updateSearch = e => {
     setSearch(e.target.value);    // <= valore dell'input
@@ -40,15 +47,17 @@ const App = () => {
           Search
         </button>
       </form>
-      {recipes.map(recipe => (
-        <Recipe
-          key={recipe.recipe.label}
-          title={recipe.recipe.label}
-          calories={recipe.recipe.calories}
-          image={recipe.recipe.image}
-          ingredients={recipe.recipe.ingredients}
-        />
-      ))}
+      <div className='recipes'>
+        {recipes.map(recipe => (
+          <Recipe
+            key={recipe.recipe.label}
+            title={recipe.recipe.label}
+            calories={recipe.recipe.calories}
+            image={recipe.recipe.image}
+            ingredients={recipe.recipe.ingredients}
+          />
+        ))}
+      </div>
     </div>
   );
 };
